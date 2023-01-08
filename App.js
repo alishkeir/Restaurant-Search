@@ -1,10 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
-import CategoryItem from './src/components/CategoryItem';
+import { StyleSheet, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 import Header from './src/components/Header';
 import Search from './src/components/Search';
+import Categories from './src/components/Categories';
 
 const commonCategories = [
     {
@@ -40,20 +40,10 @@ const App = () => {
         <View style={styles.container}>
             <Header />
             <Search setTerm={setTerm} />
-            <FlatList
-                data={commonCategories}
-                renderItem={({ index, item }) => (
-                    <CategoryItem
-                        image={item.image}
-                        name={item.name}
-                        index={index}
-                        active={item.name === term}
-                        handlePress={() => setTerm(item.name)}
-                    />
-                )}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(category) => category.name}
+            <Categories
+                commonCategories={commonCategories}
+                term={term}
+                setTerm={setTerm}
             />
             <StatusBar />
         </View>
