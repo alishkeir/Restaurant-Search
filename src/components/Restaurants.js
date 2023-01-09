@@ -4,37 +4,32 @@ import {
     Text,
     ActivityIndicator,
     FlatList,
+    TouchableOpacity,
 } from 'react-native';
-import { useEffect } from 'react';
-import useRestaurants from '../hooks/useRestaurants';
-import format from 'pretty-format';
+import { withNavigation } from 'react-navigation';
 import RestaurantItem from './RestaurantItem';
 
-const Restaurants = ({ term }) => {
-    const [{ data, loading, error }, searchRestaurants] = useRestaurants();
-
-    useEffect(() => {
-        searchRestaurants(term);
-    }, [term]);
-
-    console.log(format(data));
-
-    if (loading) return <ActivityIndicator size={40} marginVertical={30} />;
-
-    if (error)
-        return (
-            <View style={styles.container}>
-                <Text style={styles.header}>{error}</Text>
-            </View>
-        );
+const Restaurants = ({ data, error, loading, navigation }) => {
+    if (loading) return <ActivityIndicator size='large' marginVertical={30} />;
 
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Top Restaurants</Text>
+
             <FlatList
                 data={data}
                 keyExtractor={(restaurant) => restaurant.id}
-                renderItem={({ item }) => <RestaurantItem restaurant={item} />}
+                renderItem={({ item, index }) => (
+                    <TouchableOpacity
+                        onPress={() =>
+                            navigation.navigate('Restaurant', { id: item.id })
+                        }
+                        activeOpacity={1}
+                    >
+                        <RestaurantItem restaurant={item} />
+                    </TouchableOpacity>
+                )}
+                showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
             />
         </View>
@@ -45,7 +40,7 @@ const styles = StyleSheet.create({
     container: {
         marginHorizontal: 25,
         marginVertical: 15,
-        // flex: 1,
+        flex: 1,
     },
     header: {
         fontWeight: 'bold',
@@ -54,4 +49,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Restaurants;
+export default withNavigation(Restaurants);

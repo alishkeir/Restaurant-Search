@@ -1,25 +1,23 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-const Header = () => {
+const Header = ({ upperText, lowerText }) => {
     return (
-        <View style={styles.container}>
-            <Text style={styles.lightHeader}>Grab your</Text>
-            <Text style={styles.boldHeader}>delicious meal!</Text>
+        <View syle={styles.headerContainer}>
+            <Text style={styles.header1}>{upperText}</Text>
+            <Text style={styles.header2}>{lowerText}</Text>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 60,
+    header1: {
+        fontSize: 35,
+        marginTop: 5,
         marginHorizontal: 25,
     },
-    lightHeader: {
-        fontSize: 35,
-        fontWeight: '400',
-    },
-    boldHeader: {
+    header2: {
         fontSize: 40,
+        marginHorizontal: 25,
         fontWeight: 'bold',
     },
 });

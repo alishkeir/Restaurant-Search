@@ -1,30 +1,29 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { elevation } from '../common/Styles';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 const CategoryItem = ({
-    image = '',
-    name = '',
-    index = 0,
-    active = false,
-    handlePress,
+    index,
+    category,
+    active,
+    onPressCategoryItem,
     isLast,
 }) => {
     return (
-        <TouchableOpacity onPress={handlePress} activeOpacity={1}>
+        <TouchableOpacity onPress={onPressCategoryItem} activeOpacity={1}>
             <View
                 style={[
                     styles.container,
-                    styles.elevation,
                     index === 0 ? { marginLeft: 25 } : { marginLeft: 15 },
                     active
-                        ? { backgroundColor: '#F5BB5C' }
-                        : { backgroundColor: '#fff' },
+                        ? { backgroundColor: 'rgb(241,186,87)' }
+                        : { backgroundColor: 'white' },
                     isLast ? { marginRight: 25 } : null,
                 ]}
             >
-                <View style={styles.imageContainer}>
-                    <Image source={image} style={styles.image} />
+                <View style={[styles.imageContainer]}>
+                    <Image style={styles.image} source={category.image} />
                 </View>
-                <Text style={styles.header}>{name}</Text>
+                <Text style={styles.header}>{category.name}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -34,12 +33,15 @@ const styles = StyleSheet.create({
     container: {
         width: 70,
         height: 100,
-        borderRadius: 50,
-        marginVertical: 15,
+        borderRadius: 500,
         alignItems: 'center',
         justifyContent: 'center',
+        shadowOffset: { width: 5, height: 5 },
+        shadowColor: 'black',
+        shadowOpacity: 0.1,
+        elevation: 3,
+        marginBottom: 7,
     },
-    elevation,
     image: {
         width: 35,
         height: 35,
@@ -47,15 +49,14 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: 50,
         height: 50,
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 50,
+        borderRadius: 500,
         marginBottom: 5,
     },
     header: {
         fontWeight: 'bold',
     },
 });
-
 export default CategoryItem;

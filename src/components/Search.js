@@ -1,47 +1,52 @@
 import { TextInput, View, StyleSheet } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { elevation } from '../common/Styles';
-import { useState } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
+import React, { useState } from 'react';
 
 const Search = ({ setTerm }) => {
-    const [search, setSearch] = useState('');
-
-    const handleEndEditing = () => {
-        if (!search) return;
-        setTerm(search);
-        setSearch('');
-    };
+    const [input, setInput] = useState('');
 
     return (
-        <View style={[styles.container, styles.elevation]}>
-            <FontAwesome5 name='search' size={25} />
+        <View style={[styles.elevation, styles.inputContainer]}>
+            <FontAwesome name='search' size={25} style={styles.iconStyles} />
             <TextInput
                 style={styles.input}
                 placeholder='Restaurants, food'
-                onChangeText={(text) => setSearch(text)}
-                onEndEditing={handleEndEditing}
-                value={search}
+                value={input}
+                onChangeText={(text) => setInput(text)}
+                onEndEditing={() => {
+                    if (input) setTerm(input);
+                    setInput('');
+                }}
             />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        flexDirection: 'row',
+    inputContainer: {
         marginTop: 5,
         marginHorizontal: 25,
-        backgroundColor: '#fff',
-        padding: 15,
-        borderRadius: 50,
+        backgroundColor: 'white',
+        paddingVertical: 5,
+        paddingHorizontal: 15,
+        borderRadius: 40,
+        flexDirection: 'row',
+        height: 50,
     },
-    elevation,
-
+    elevation: {
+        shadowOffset: { width: 5, height: 5 },
+        shadowColor: 'black',
+        shadowOpacity: 0.1,
+        elevation: 3,
+    },
     input: {
         fontSize: 20,
-        marginLeft: 10,
+        marginHorizontal: 10,
         flex: 1,
+        height: 40,
+    },
+    iconStyles: {
+        marginTop: 7,
     },
 });
 

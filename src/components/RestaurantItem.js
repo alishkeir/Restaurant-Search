@@ -1,5 +1,6 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { elevation } from '../common/Styles';
+import { Image, StyleSheet, Text, View } from 'react-native';
+
+import { withNavigation } from 'react-navigation';
 
 const RestaurantItem = ({ restaurant }) => {
     return (
@@ -60,4 +61,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RestaurantItem;
+export default withNavigation(RestaurantItem);
