@@ -18,7 +18,7 @@ const useRestaurants = () => {
         try {
             const response = await yelp.get(`/search`, {
                 params: {
-                    limit: 2,
+                    limit: 15,
                     term,
                     location: 'Toronto',
                 },

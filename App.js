@@ -1,64 +1,19 @@
-import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import HomeScreen from './src/screens/HomeScreen';
+import RestaurantScreen from './src/screens/RestaurantScreen';
 
-import Header from './src/components/Header';
-import Search from './src/components/Search';
-import Categories from './src/components/Categories';
-import Restaurants from './src/components/Restaurants';
-
-const commonCategories = [
+const navigator = createStackNavigator(
     {
-        name: 'Burger',
-        image: require('./src/assets/images/burger.png'),
+        Home: HomeScreen,
+        Restaurant: RestaurantScreen,
     },
     {
-        name: 'Pizza',
-        image: require('./src/assets/images/pizza.png'),
-    },
-    {
-        name: 'Dessert',
-        image: require('./src/assets/images/cake.png'),
-    },
-    {
-        name: 'Drinks',
-        image: require('./src/assets/images/smoothies.png'),
-    },
-    {
-        name: 'Steak',
-        image: require('./src/assets/images/steak.png'),
-    },
-    {
-        name: 'Pasta',
-        image: require('./src/assets/images/pasta.png'),
-    },
-];
+        initialRouteName: 'Home',
+        defaultNavigationOptions: {
+            title: 'Business Search',
+        },
+    }
+);
 
-const App = () => {
-    const [term, setTerm] = useState('Burger');
-
-    return (
-        <View style={styles.container}>
-            <Header />
-            <Search setTerm={setTerm} />
-            <Categories
-                commonCategories={commonCategories}
-                term={term}
-                setTerm={setTerm}
-            />
-            <Restaurants term={term} />
-            <StatusBar />
-        </View>
-    );
-};
-
-const styles = StyleSheet.create({
-    // container: {
-    //     flex: 1,
-    //     backgroundColor: '#fff',
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    // },
-});
-
-export default App;
+export default createAppContainer(navigator);
