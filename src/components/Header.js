@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     },
     lightHeader: {
         fontSize: 35,
+        fontWeight: '400',
     },
     boldHeader: {
         fontSize: 40,

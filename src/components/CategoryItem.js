@@ -6,6 +6,7 @@ const CategoryItem = ({
     index = 0,
     active = false,
     handlePress,
+    isLast,
 }) => {
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={1}>
@@ -17,6 +18,7 @@ const CategoryItem = ({
                     active
                         ? { backgroundColor: '#F5BB5C' }
                         : { backgroundColor: '#fff' },
+                    isLast ? { marginRight: 25 } : null,
                 ]}
             >
                 <View style={styles.imageContainer}>
